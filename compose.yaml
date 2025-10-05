@@ -1,0 +1,28 @@
+services:
+  dotnet-tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    image: dotnet-tools:latest
+    container_name: dotnet-tools-container
+    
+    # インタラクティブモードで実行する場合
+    stdin_open: true
+    tty: true
+    
+    # 実行後すぐにコンテナが終了しないようにする場合
+    # command: tail -f /dev/null
+    
+    # 環境変数（必要に応じて）
+    environment:
+      - DOTNET_NOLOGO=true
+      - DOTNET_CLI_TELEMETRY_OPTOUT=true
+    
+    # ボリュームマウント（開発時に便利）
+    volumes:
+      - .:/workspace:ro
+    
+    working_dir: /workspace

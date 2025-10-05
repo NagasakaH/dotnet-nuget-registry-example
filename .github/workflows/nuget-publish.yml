@@ -25,13 +25,19 @@ jobs:
         dotnet-version: '8.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore HelloWorldTool/HelloWorldTool.csproj
+      run: |
+        dotnet restore HelloWorldTool/HelloWorldTool.csproj
+        dotnet restore KonichiwaTool/KonichiwaTool.csproj
     
     - name: Build
-      run: dotnet build HelloWorldTool/HelloWorldTool.csproj --no-restore --configuration Release
+      run: |
+        dotnet build HelloWorldTool/HelloWorldTool.csproj --no-restore --configuration Release
+        dotnet build KonichiwaTool/KonichiwaTool.csproj --no-restore --configuration Release
     
     - name: Pack
-      run: dotnet pack HelloWorldTool/HelloWorldTool.csproj --no-build --configuration Release --output ./packages
+      run: |
+        dotnet pack HelloWorldTool/HelloWorldTool.csproj --no-build --configuration Release --output ./packages
+        dotnet pack KonichiwaTool/KonichiwaTool.csproj --no-build --configuration Release --output ./packages
     
     - name: List packages
       run: ls -la ./packages/
